@@ -1,0 +1,205 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.8 (Debian 11.8-1.pgdg90+1)
+-- Dumped by pg_dump version 11.8 (Debian 11.8-1.pgdg90+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: to_do; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.to_do (
+    user_id character varying(100) NOT NULL,
+    crt_timestamp timestamp with time zone NOT NULL,
+    importance integer,
+    category integer,
+    to_do character varying(400),
+    time_to_be_done timestamp with time zone,
+    time_done timestamp with time zone
+);
+
+
+ALTER TABLE public.to_do OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    user_id character varying(100) NOT NULL,
+    password character varying(60),
+    name character varying(100),
+    crt_timestamp timestamp with time zone
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: what_done; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.what_done (
+    user_id character varying(100) NOT NULL,
+    crt_timestamp timestamp with time zone NOT NULL,
+    category integer,
+    what_done character varying(400),
+    additional_info character varying(400),
+    start_date_time timestamp with time zone,
+    end_date_time timestamp with time zone
+);
+
+
+ALTER TABLE public.what_done OWNER TO postgres;
+
+--
+-- Data for Name: to_do; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.to_do (user_id, crt_timestamp, importance, category, to_do, time_to_be_done, time_done) FROM stdin;
+aaa	2020-07-04 12:32:41.556146+00	0	0		2020-07-04 12:32:00+00	\N
+aaa	2020-07-04 12:32:48.142636+00	0	0		2020-07-03 17:00:00+00	\N
+fukui@fukui.com	2020-07-03 03:53:40.120508+00	1	1	Kubernetes	2020-07-05 03:53:00+00	\N
+fukui@fukui.com	2020-07-03 06:49:26.046571+00	3	2	自己管理のデータ分析	2020-08-29 14:59:00+00	\N
+fukui@fukui.com	2020-07-03 06:52:06.772316+00	1	2	完了ステータス(終了日時が入っているもの)のものを別の表に移す	2020-07-03 14:00:00+00	2020-07-03 08:00:00+00
+fukui@fukui.com	2020-07-03 06:52:47.085789+00	3	2	重要度によって色分けする	2020-07-03 14:59:00+00	2020-07-03 08:20:00+00
+fukui@fukui.com	2020-07-03 06:57:16.780694+00	1	2	期限の昇順でソートする	2020-07-03 14:59:00+00	2020-07-03 08:30:00+00
+fukui@fukui.com	2020-07-03 08:36:54.106667+00	1	2	完了の方のテーブルには終了日時を表示させる	2020-07-03 14:00:00+00	2020-07-03 08:45:00+00
+fukui@fukui.com	2020-07-03 08:47:43.741564+00	2	2	終了日時はソートを終了日時順にする？	2020-07-11 08:46:00+00	\N
+fukui@fukui.com	2020-07-03 16:32:29.336872+00	3	2	JWTのパスワード保管の考察	2020-07-24 16:32:00+00	2020-07-03 16:41:00+00
+fukui@fukui.com	2020-07-03 16:42:17.622709+00	3	2	完了したやつも残しておきたいのでページングする	2020-07-11 14:41:00+00	\N
+fukui@fukui.com	2020-07-04 04:04:49.057149+00	3	2	ログアウト機能	2020-07-25 04:04:00+00	\N
+fukui@fukui.com	2020-07-04 05:02:55.618106+00	2	2	React　やってみよう	2020-08-29 05:02:00+00	\N
+fukui@fukui.com	2020-07-03 08:35:51.371879+00	3	2	routeDetail()をTodoList, コンポーネント、TodoTableコンポーネントで共通化したい	2020-08-29 08:30:00+00	2020-07-03 14:59:00+00
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (user_id, password, name, crt_timestamp) FROM stdin;
+aaa	$2a$10$NIUuZ2Hkan6BhmHmuGgSC.ffskjdmARc56XXOR2tPmm5VAQPGLOXy	aaaaaa	2020-07-04 12:31:56.752964+00
+fukui@fukui.com	$2a$10$XyAwkccRq7vz3enehLGIxuQaosjKd.OOfwuq0Ct3526j4/7MGQALq	福井義春	2020-06-29 12:20:02.022279+00
+	$2a$10$Y05ryxZFIFA8lQo0r02zZ.GAEuxQfGxyjeIj9l3cDpr7.1q45KfCi		2020-06-30 11:59:57.85474+00
+test@test.com	$2a$10$JHkQja/TCk/kGR5./SYHGO2iHhql.Dj1Tb.NaZfY.CN9he5XKDgzC	tester	2020-07-03 16:48:16.214078+00
+test2@test2.com	$2a$10$0E0o1ghHbLhyUeUXe/l0K.z1yG2YqsNbj6ZAX9EH9gSPlPQCNCbem	test	2020-07-04 08:29:57.48577+00
+tes@tes.com	$2a$10$IO2iryg5v.Bd2HA1hnZ1F.V7Wga3rkx04pmuNyHjPfUFFfsdg4Rje		2020-07-04 08:36:29.709332+00
+tes1@tes.com	$2a$10$B0edlPhtpbFMCCiS3Wbnv.0yDGYge/ve7fPL66PaZGp9QMOibfMn6		2020-07-04 08:39:09.387643+00
+sssssssss	$2a$10$4rLUHXaHRmEr4.ruwNXRd.VEu/TrWIFAuxJFtpusEke4VXQK6pigK		2020-07-04 08:40:12.30564+00
+sssssss	$2a$10$Fua5LaOvClqYN98IX0QrcuspaZrWva3Y9brMyIfIfF6pF8kXrU7tC		2020-07-04 08:41:31.882839+00
+u	$2a$10$2u82NtVq/m3rk/m23o6V..a2/ax4r5VSIL4Ng3AQFvAL.CLGcaisG	u	2020-07-04 16:23:31.874073+00
+\.
+
+
+--
+-- Data for Name: what_done; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.what_done (user_id, crt_timestamp, category, what_done, additional_info, start_date_time, end_date_time) FROM stdin;
+aaa	2020-07-04 12:32:18.104612+00	0			2020-07-03 16:00:00+00	\N
+aaa	2020-07-04 12:32:31.708676+00	0			2020-07-04 12:32:00+00	\N
+fukui@fukui.com	2020-07-03 16:34:43.912459+00	2	JWT認証の実装\n・方式.ペイロード.署名のjson\n・axios.interceptors.request.useを使ってヘッダーに認証情報を埋め込む処理を実装		2020-07-03 12:00:00+00	2020-07-03 14:59:00+00
+fukui@fukui.com	2020-07-01 03:39:13.183099+00	4	移動、通勤、ビックカメラにてUSB変換アダプタ購入		2020-07-01 02:00:00+00	2020-07-01 03:30:00+00
+fukui@fukui.com	2020-07-01 04:56:08.73489+00	2	ポストするときは直前の最新ドキュメントの終了日時を埋めるようにした		2020-07-01 03:30:00+00	2020-07-01 04:55:00+00
+fukui@fukui.com	2020-07-01 09:02:52.533913+00	3	テスト		2020-06-30 01:55:00+00	2020-06-30 09:02:00+00
+fukui@fukui.com	2020-07-01 09:28:51.581574+00	2	月ごとのデータ一覧取得		2020-07-01 04:55:00+00	2020-07-01 06:00:00+00
+fukui@fukui.com	2020-07-01 09:29:21.273569+00	1	ご飯、海苔		2020-07-01 06:00:00+00	2020-07-01 07:00:00+00
+fukui@fukui.com	2020-07-01 09:38:15.170047+00	2	月ごとの取得、JavaScriptにおけるDateの仕様		2020-07-01 07:00:00+00	2020-07-01 09:30:00+00
+fukui@fukui.com	2020-07-01 11:04:38.486014+00	4	睡眠		2020-07-01 09:30:00+00	2020-07-01 11:00:00+00
+fukui@fukui.com	2020-07-01 15:24:03.377807+00	2	範囲検索目論み		2020-07-01 11:00:00+00	2020-07-01 11:45:00+00
+fukui@fukui.com	2020-07-01 15:26:42.772319+00	4	休憩		2020-07-01 11:45:00+00	2020-07-01 14:59:00+00
+fukui@fukui.com	2020-07-04 02:47:34.249921+00	4	起床		2020-07-03 16:40:00+00	2020-07-04 01:30:00+00
+fukui@fukui.com	2020-07-01 02:01:00.119404+00	2	・goのウェブサーバー構築\n・設定値の扱い\n・更新、削除実装\n		2020-07-01 00:40:00+00	2020-07-01 02:00:00+00
+fukui@fukui.com	2020-07-01 17:06:35.55771+00	2	[今日の復習]\n・日付に関する範囲検索のSQLを習得\n・gorpにおける型のcast は Date(x), ローカルのpostgresのバージョンでは Date x\n・ querySpanStart := r.URL.Query()["spanStart"]  ...Query()はmap, valueはスライス		2020-07-01 17:00:00+00	2020-07-01 17:10:00+00
+fukui@fukui.com	2020-07-01 17:01:09.917522+00	2	範囲検索調整。<span style="color: blue;">どうもgorpのjdbcのpostgresのSQLの書き方と、ローカルのpostgresのSQLの書き方が違う</span>		2020-07-01 15:00:00+00	2020-07-01 17:00:00+00
+fukui@fukui.com	2020-07-02 03:14:01.118947+00	2	レイアウト試行錯誤		2020-07-01 17:10:00+00	2020-07-01 19:00:00+00
+fukui@fukui.com	2020-07-02 03:14:20.833032+00	4	就寝		2020-07-01 19:00:00+00	2020-07-02 02:00:00+00
+fukui@fukui.com	2020-07-02 03:14:41.205415+00	4	ゲーム、ツイッター		2020-07-02 02:00:00+00	2020-07-02 03:00:00+00
+fukui@fukui.com	2020-07-02 07:09:05.915553+00	1	どん丸		2020-07-02 03:00:00+00	2020-07-02 03:30:00+00
+fukui@fukui.com	2020-07-02 07:09:29.408838+00	4	休憩		2020-07-02 03:30:00+00	2020-07-02 04:00:00+00
+fukui@fukui.com	2020-07-02 07:10:03.204712+00	2	デザイン(レイアウトと格闘)		2020-07-02 04:00:00+00	2020-07-02 07:00:00+00
+fukui@fukui.com	2020-07-02 07:17:27.488968+00	2	ToDo機能を作る -Dao作成\nコンストラクタ的なメソッドはポインタで返す\n		2020-07-02 07:00:00+00	2020-07-02 10:00:00+00
+fukui@fukui.com	2020-07-02 15:03:51.259035+00	0			0001-01-01 00:00:00+00	0001-01-01 00:00:00+00
+fukui@fukui.com	2020-07-02 15:09:08.041041+00	0			0001-01-01 00:00:00+00	0001-01-01 00:00:00+00
+fukui@fukui.com	2020-07-02 16:43:56.131639+00	2	Todo格闘		2020-07-02 11:30:00+00	2020-07-02 14:59:00+00
+fukui@fukui.com	2020-07-02 16:43:20.388003+00	4	運動、食事		2020-07-02 10:00:00+00	2020-07-02 11:30:00+00
+fukui@fukui.com	2020-07-02 16:12:54.562188+00	2	golang勉強。\n・ポインタはnil可能。 \n・structはポインタで返さなければnil不可\n・timeをnilで返すにはそのフィールドの定義はポインタにする\n・structにパースするとデフォルトのtimestampが格納されてしまう\n・timeフィールドを条件によってはnilで返すメソッドを実装\n・後半リストには初期値が入ってしまう問題はjsの問題だった		2020-07-02 15:00:00+00	2020-07-02 16:50:00+00
+fukui@fukui.com	2020-07-03 02:34:27.74208+00	4	睡眠		2020-07-02 16:50:00+00	2020-07-03 01:00:00+00
+fukui@fukui.com	2020-07-03 04:16:15.598749+00	2	レスポンスビーン修正(structのjson プロパティに型を書いておくのを忘れない)\nJavascriptからのリクエストだとどうしてもint型ででたを送りたいのにクライアント側ではstringになtたりする		2020-07-03 01:00:00+00	2020-07-03 05:00:00+00
+fukui@fukui.com	2020-07-03 08:52:38.663867+00	4	ゲーム、買い物。たこ焼き、餃子、野菜ジュース、ブルーレット		2020-07-03 05:00:00+00	2020-07-03 06:30:00+00
+fukui@fukui.com	2020-07-03 08:54:18.282836+00	2	vueのコンポーネント間のデータの受け渡しと再利用によりTodoListのページを未完了、完了で上下に分類\n子 => props:['todo'] でdataの中身として扱える 		2020-07-03 06:30:00+00	2020-07-03 08:50:00+00
+fukui@fukui.com	2020-07-04 04:03:38.619529+00	2	axios interceptorsを使用して認証エラーの場合ログイン画面に遷移するようにした		2020-07-04 01:30:00+00	2020-07-04 04:00:00+00
+fukui@fukui.com	2020-07-03 16:34:06.794927+00	4	買い物。休憩。Yaokoは飲み物がめちゃくちゃ安い		2020-07-03 08:50:00+00	2020-07-03 12:00:00+00
+fukui@fukui.com	2020-07-04 14:26:13.267316+00	1	休憩		2020-07-04 04:00:00+00	2020-07-04 05:00:00+00
+fukui@fukui.com	2020-07-04 14:27:21.387364+00	2	Kubernetes。DaemonSet、StatefulSet よくわからなかった		2020-07-04 05:00:00+00	2020-07-04 07:00:00+00
+fukui@fukui.com	2020-07-04 17:10:33.991381+00	2	gitにこのアプリを公開した		2020-07-04 07:00:00+00	2020-07-04 14:59:00+00
+fukui@fukui.com	2020-07-03 16:37:52.289059+00	2	JWT認証実装。ログイン以外の全APIで実装完了		2020-07-03 15:00:00+00	2020-07-03 16:40:00+00
+fukui@fukui.com	2020-07-05 06:20:31.601762+00	4	睡眠		2020-07-04 15:59:00+00	2020-07-05 03:00:00+00
+fukui@fukui.com	2020-07-05 06:24:25.846619+00	4	呪怨見た		2020-07-05 03:00:00+00	2020-07-05 06:00:00+00
+fukui@fukui.com	2020-07-05 06:26:11.98061+00	0			2020-07-05 01:00:00+00	\N
+fukui@fukui.com	2020-07-05 06:26:26.337832+00	0			2020-07-05 00:00:00+00	\N
+fukui@fukui.com	2020-07-05 06:28:57.441041+00	0	test		2020-07-04 15:00:00+00	2020-07-05 11:00:00+00
+\.
+
+
+--
+-- Name: to_do to_do_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.to_do
+    ADD CONSTRAINT to_do_pkey PRIMARY KEY (user_id, crt_timestamp);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: what_done what_done_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.what_done
+    ADD CONSTRAINT what_done_pkey PRIMARY KEY (user_id, crt_timestamp);
+
+
+--
+-- Name: to_do to_do_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.to_do
+    ADD CONSTRAINT to_do_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id);
+
+
+--
+-- Name: what_done what_done_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.what_done
+    ADD CONSTRAINT what_done_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
